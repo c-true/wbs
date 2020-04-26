@@ -12,7 +12,7 @@ namespace CTrue.Wbs.Core.Test
     public class WbsEngineTest
     {
         [TestMethod]
-        public void Test()
+        public void Hit_DicerollHigerThenBalisticskillThenTrue()
         {
             // Arrange 
             IDice dice = A.Fake<IDice>();
@@ -20,30 +20,9 @@ namespace CTrue.Wbs.Core.Test
 
             WbsEngine engine = new WbsEngine(dice) ;
 
-            Unit guardsman = new Unit();
-            guardsman.Name = "Guardsman";
-            guardsman.Movement = 6;
-            guardsman.WeaponSkill = 4;
-            guardsman.BallisticSkill = 4;
-            guardsman.Strength = 3;
-            guardsman.Toughness = 3;
-            guardsman.Wounds = 1;
-            guardsman.Attack = 1;
-            guardsman.Leadership = 6;
-            guardsman.Save = 5;
-
-            Unit fireWarrior = new Unit();
-            fireWarrior.Name = "Fire Warrior";
-            fireWarrior.Movement = 6;
-            fireWarrior.WeaponSkill = 5;
-            fireWarrior.BallisticSkill = 4;
-            fireWarrior.Strength = 3;
-            fireWarrior.Toughness = 3;
-            fireWarrior.Wounds = 1;
-            fireWarrior.Attack = 1;
-            fireWarrior.Leadership = 6;
-            fireWarrior.Save = 4;
-
+            Unit guardsman = Createguardsman();  
+            Unit fireWarrior = Createfirewarrior();
+           
             // Act
             bool hit = engine.Hit(guardsman, fireWarrior);
 
@@ -60,35 +39,49 @@ namespace CTrue.Wbs.Core.Test
 
             WbsEngine engine = new WbsEngine(dice);
 
-            Unit guardsman = new Unit();
-            guardsman.Name = "Guardsman";
-            guardsman.Movement = 6;
-            guardsman.WeaponSkill = 4;
-            guardsman.BallisticSkill = 4;
-            guardsman.Strength = 3;
-            guardsman.Toughness = 3;
-            guardsman.Wounds = 1;
-            guardsman.Attack = 1;
-            guardsman.Leadership = 6;
-            guardsman.Save = 5;
-
-            Unit fireWarrior = new Unit();
-            fireWarrior.Name = "Fire Warrior";
-            fireWarrior.Movement = 6;
-            fireWarrior.WeaponSkill = 5;
-            fireWarrior.BallisticSkill = 4;
-            fireWarrior.Strength = 3;
-            fireWarrior.Toughness = 3;
-            fireWarrior.Wounds = 1;
-            fireWarrior.Attack = 1;
-            fireWarrior.Leadership = 6;
-            fireWarrior.Save = 4;
-
+            Unit guardsman = Createguardsman();
+            Unit fireWarrior = Createfirewarrior();
+           
             // Act
             bool hit = engine.Hit(guardsman, fireWarrior);
 
             // Assert
             Assert.IsFalse(hit);
         }
+
+        private Unit Createguardsman()
+        {
+            return new Unit()
+            {
+
+                Name = "Guardsman",
+                Movement = 6,
+                WeaponSkill = 4,
+                BallisticSkill = 4,
+                Strength = 3,
+                Toughness = 3,
+                Wounds = 1,
+                Attack = 1,
+                Leadership = 6,
+                Save = 5,
+            };
+        }
+        private Unit Createfirewarrior()
+        {
+            return new Unit()
+            {
+                Name = "Fire Warrior",
+                Movement = 6,
+                WeaponSkill = 5,
+                BallisticSkill = 4,
+                Strength = 3,
+                Toughness = 3,
+                Wounds = 1,
+                Attack = 1,
+                Leadership = 6,
+                Save = 4,
+            };
+        }   
+        
     }
 }
