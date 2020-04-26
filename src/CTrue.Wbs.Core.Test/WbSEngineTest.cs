@@ -49,6 +49,25 @@ namespace CTrue.Wbs.Core.Test
             Assert.IsFalse(hit);
         }
 
+        [TestMethod]
+        public void woundroll()
+        {
+            // Arrange 
+            IDice dice = A.Fake<IDice>();
+            A.CallTo(() => dice.Roll()).Returns(1);
+
+            WbsEngine engine = new WbsEngine(dice);
+
+            Weapon lasgun = Createlasgun();
+            Unit fireWarrior = Createfirewarrior();
+
+            // Act
+            bool wound = engine.Wound(lasgun, fireWarrior);
+
+            // Assert
+            Assert.IsFalse(wound);
+        }
+
         private Unit Createguardsman()
         {
             return new Unit()
@@ -83,5 +102,16 @@ namespace CTrue.Wbs.Core.Test
             };
         }   
         
+        private Weapon Createlasgun()
+        {
+            return new Weapon
+            {
+                Name = "Lasgun",
+                Range = 24,
+                Strength = 3,
+                RapidFire = 1,
+            };
+            
+        }
     }
 }
