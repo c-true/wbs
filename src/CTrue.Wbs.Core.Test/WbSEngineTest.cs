@@ -12,11 +12,14 @@ namespace CTrue.Wbs.Core.Test
     public class WbsEngineTest
     {
         [TestMethod]
-        public void Hit_DicerollHigerThenBalisticskillThenTrue()
+        [DataRow(5, true)]
+        [DataRow(1, false)]
+        [DataRow(2, false)]
+        public void Hit_Test(int diceRoll, bool result)
         {
             // Arrange 
             IDice dice = A.Fake<IDice>();
-            A.CallTo(() => dice.Roll()).Returns(5);
+            A.CallTo(() => dice.Roll()).Returns(diceRoll);
 
             WbsEngine engine = new WbsEngine(dice) ;
 
@@ -27,30 +30,11 @@ namespace CTrue.Wbs.Core.Test
             bool hit = engine.Hit(guardsman, fireWarrior);
 
             // Assert
-            Assert.IsTrue(hit);
-        }
+            Assert.AreEqual(hit, result);
+        ]
 
         [TestMethod]
-        public void Hit_False()
-        {
-            // Arrange 
-            IDice dice = A.Fake<IDice>();
-            A.CallTo(() => dice.Roll()).Returns(1);
-
-            WbsEngine engine = new WbsEngine(dice);
-
-            Unit guardsman = Createguardsman();
-            Unit fireWarrior = Createfirewarrior();
-           
-            // Act
-            bool hit = engine.Hit(guardsman, fireWarrior);
-
-            // Assert
-            Assert.IsFalse(hit);
-        }
-
-        [TestMethod]
-        public void woundroll()
+        public void WoundRoll()
         {
             // Arrange 
             IDice dice = A.Fake<IDice>();
@@ -66,6 +50,27 @@ namespace CTrue.Wbs.Core.Test
 
             // Assert
             Assert.IsFalse(wound);
+        }
+
+        [TestMethod]
+        [DataRow(1, false)]
+        [DataRow(2, false)]
+        [DataRow(5, true)]
+        public void SavingThrow_Fail(int diceRoll, bool result)
+        {
+            IDice dice = A.Fake<IDice>();
+            A.CallTo(() => dice.Roll()).Returns(diceRoll);
+
+            WbsEngine engine = new WbsEngine(dice);
+
+            Weapon lasgun = Createlasgun();
+            Unit fireWarrior = Createfirewarrior();
+
+            // Act
+            bool save = engine.Save(lasgun, fireWarrior);
+
+            // Assert
+            Assert.AreEqual(save, result);
         }
 
         private Unit Createguardsman()
@@ -110,6 +115,7 @@ namespace CTrue.Wbs.Core.Test
                 Range = 24,
                 Strength = 3,
                 RapidFire = 1,
+                ArmourPenetration = 0
             };
             
         }

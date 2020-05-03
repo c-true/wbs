@@ -75,6 +75,21 @@ namespace CTrue.Wbs.Core
             return 4;
 
         }
-        
+
+        public bool Save(Weapon attackerWeapon, Unit defender)
+        {
+            int saveRoll = _dice.Roll();
+
+            if (saveRoll == 1)
+            {
+                return false;
+            }
+
+            saveRoll -= attackerWeapon.ArmourPenetration;
+
+            return (saveRoll >= defender.Save);
+            
+         }
+           
     }
 }

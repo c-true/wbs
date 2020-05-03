@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace CTrue.Wbs.Core.Test
 {
     [TestClass]
-    public class UnitTest1
+    public class DiceTest
     {
         [TestMethod]
         public void Roll_GreaterThanZero()

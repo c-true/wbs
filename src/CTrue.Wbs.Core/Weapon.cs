@@ -10,5 +10,6 @@ namespace CTrue.Wbs.Core
 
         public int RapidFire { get; set; }
 
+        public int ArmourPenetration { get; set; }
     }
 }
