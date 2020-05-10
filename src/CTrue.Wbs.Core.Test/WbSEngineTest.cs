@@ -21,17 +21,18 @@ namespace CTrue.Wbs.Core.Test
             IDice dice = A.Fake<IDice>();
             A.CallTo(() => dice.Roll()).Returns(diceRoll);
 
-            WbsEngine engine = new WbsEngine(dice) ;
+            WbsEngine engine = new WbsEngine(dice);
 
-            Unit guardsman = Createguardsman();  
+            Unit guardsman = Createguardsman();
             Unit fireWarrior = Createfirewarrior();
-           
+
             // Act
             bool hit = engine.Hit(guardsman, fireWarrior);
 
             // Assert
-            Assert.AreEqual(hit, result);
-        ]
+            Assert.AreEqual(hit, result); 
+        }
+        
 
         [TestMethod]
         public void WoundRoll()

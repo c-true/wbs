@@ -43,7 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="WbSEngineTest.cs" />
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="DiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
