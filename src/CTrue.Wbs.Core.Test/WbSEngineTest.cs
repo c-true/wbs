@@ -68,10 +68,37 @@ namespace CTrue.Wbs.Core.Test
             Unit fireWarrior = Createfirewarrior();
 
             // Act
-            bool save = engine.Save(lasgun, fireWarrior);
+            bool save = engine.WasSaved(lasgun, fireWarrior);
 
             // Assert
             Assert.AreEqual(save, result);
+        }
+
+        [TestMethod]
+        [DataRow(6,6,1, true)]
+        [DataRow(1,6,1, false)]
+        [DataRow(6,1,1, false)]
+        [DataRow(6,6,6, false)]
+        [DataRow(6,6,2, true)]
+
+        public void Defender_Killed(int hitRoll, int woundRoll, int saveRoll, bool result)
+        {
+            // Arrange
+
+            IDice dice = A.Fake<IDice>();
+            A.CallTo(() => dice.Roll()).ReturnsNextFromSequence(hitRoll, woundRoll, saveRoll);
+
+            WbsEngine engine = new WbsEngine(dice);
+
+            Unit guardsman = Createguardsman();
+            Weapon lasgun = Createlasgun();
+            Unit fireWarrior = Createfirewarrior();
+
+            // Act
+            bool DefenderKilled = engine.WasDefenderKilled(guardsman, lasgun, fireWarrior);
+
+            // Assert
+            Assert.AreEqual(result, DefenderKilled);
         }
 
         private Unit Createguardsman()

@@ -76,7 +76,7 @@ namespace CTrue.Wbs.Core
 
         }
 
-        public bool Save(Weapon attackerWeapon, Unit defender)
+        public bool WasSaved(Weapon attackerWeapon, Unit defender)
         {
             int saveRoll = _dice.Roll();
 
@@ -90,6 +90,27 @@ namespace CTrue.Wbs.Core
             return (saveRoll >= defender.Save);
             
          }
-           
+         
+        /// <summary>
+        /// This method checks if an attack kills a unit.
+        /// </summary>
+        /// <param name="attacker"></param>
+        /// <param name="attackerWeapon"></param>
+        /// <param name="defender"></param>
+        /// <returns></returns>
+        public bool WasDefenderKilled(Unit attacker, Weapon attackerWeapon, Unit defender)
+        {
+            bool wasHit = Hit(attacker, defender);
+            if (wasHit == false)
+                return false;
+
+            bool wasWound = Wound(attackerWeapon, defender);
+            if (wasWound == false)
+                return false;
+
+            bool wasSaved = WasSaved(attackerWeapon, defender);
+            
+            return !wasSaved;
+        }
     }
 }
