@@ -6,6 +6,11 @@ namespace CTrue.Wbs.Core
 {
     public class WbsEngine
     {
+        public WbsEngine()
+        {
+            _dice = new Dice();
+        }
+
         public WbsEngine(IDice dice)
         {
             _dice = dice;
@@ -25,6 +30,23 @@ namespace CTrue.Wbs.Core
             {
                 return false;
             }
+        }
+
+        public double DoBattle(Unit attacker, Weapon attackerWeapon, Unit defender, int iteration)
+        {
+            int kills = 0;
+
+            for (int i = 0; i < iteration; i++)
+            {
+                bool wasKilled = WasDefenderKilled(attacker, attackerWeapon, defender);
+
+                if(wasKilled)
+                {
+                    kills += 1;
+                }
+            }
+
+            return (double)kills/(double)iteration;
         }
 
         public bool Wound(Weapon attackerWeapon, Unit defender)

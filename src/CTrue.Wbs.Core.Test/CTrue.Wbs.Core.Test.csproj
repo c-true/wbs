@@ -42,6 +42,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UnitFactory.cs" />
+    <Compile Include="WbsEngineIntegrationTest.cs" />
     <Compile Include="WbSEngineTest.cs" />
     <Compile Include="DiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -23,8 +23,8 @@ namespace CTrue.Wbs.Core.Test
 
             WbsEngine engine = new WbsEngine(dice);
 
-            Unit guardsman = Createguardsman();
-            Unit fireWarrior = Createfirewarrior();
+            Unit guardsman = UnitFactory.Createguardsman();
+            Unit fireWarrior = UnitFactory.Createfirewarrior();
 
             // Act
             bool hit = engine.Hit(guardsman, fireWarrior);
@@ -43,8 +43,8 @@ namespace CTrue.Wbs.Core.Test
 
             WbsEngine engine = new WbsEngine(dice);
 
-            Weapon lasgun = Createlasgun();
-            Unit fireWarrior = Createfirewarrior();
+            Weapon lasgun = UnitFactory.Createlasgun();
+            Unit fireWarrior = UnitFactory.Createfirewarrior();
 
             // Act
             bool wound = engine.Wound(lasgun, fireWarrior);
@@ -64,8 +64,8 @@ namespace CTrue.Wbs.Core.Test
 
             WbsEngine engine = new WbsEngine(dice);
 
-            Weapon lasgun = Createlasgun();
-            Unit fireWarrior = Createfirewarrior();
+            Weapon lasgun = UnitFactory.Createlasgun();
+            Unit fireWarrior = UnitFactory.Createfirewarrior();
 
             // Act
             bool save = engine.WasSaved(lasgun, fireWarrior);
@@ -90,62 +90,15 @@ namespace CTrue.Wbs.Core.Test
 
             WbsEngine engine = new WbsEngine(dice);
 
-            Unit guardsman = Createguardsman();
-            Weapon lasgun = Createlasgun();
-            Unit fireWarrior = Createfirewarrior();
+            Unit guardsman = UnitFactory.Createguardsman();
+            Weapon lasgun = UnitFactory.Createlasgun();
+            Unit fireWarrior = UnitFactory.Createfirewarrior();
 
             // Act
             bool DefenderKilled = engine.WasDefenderKilled(guardsman, lasgun, fireWarrior);
 
             // Assert
             Assert.AreEqual(result, DefenderKilled);
-        }
-
-        private Unit Createguardsman()
-        {
-            return new Unit()
-            {
-
-                Name = "Guardsman",
-                Movement = 6,
-                WeaponSkill = 4,
-                BallisticSkill = 4,
-                Strength = 3,
-                Toughness = 3,
-                Wounds = 1,
-                Attack = 1,
-                Leadership = 6,
-                Save = 5,
-            };
-        }
-        private Unit Createfirewarrior()
-        {
-            return new Unit()
-            {
-                Name = "Fire Warrior",
-                Movement = 6,
-                WeaponSkill = 5,
-                BallisticSkill = 4,
-                Strength = 3,
-                Toughness = 3,
-                Wounds = 1,
-                Attack = 1,
-                Leadership = 6,
-                Save = 4,
-            };
-        }   
-        
-        private Weapon Createlasgun()
-        {
-            return new Weapon
-            {
-                Name = "Lasgun",
-                Range = 24,
-                Strength = 3,
-                RapidFire = 1,
-                ArmourPenetration = 0
-            };
-            
         }
     }
 }
